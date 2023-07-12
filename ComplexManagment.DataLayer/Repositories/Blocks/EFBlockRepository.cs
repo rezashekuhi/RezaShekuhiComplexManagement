@@ -92,4 +92,8 @@ public class EFBlockRepository : BlockRepository
         _context.Blooks.UpdateRange(blook);
     }
 
+    public void UpdateRange(List<Blook> blooks)
+    {
+        _context.UpdateRange(blooks);
+    }
 }

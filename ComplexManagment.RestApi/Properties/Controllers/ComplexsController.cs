@@ -53,7 +53,7 @@ namespace ComplexManagment.Controllers
             
         }
 
-        [HttpPatch]
+        [HttpPatch("{id}")]
         public void EditeComplexUnitCount([FromRoute]int id,[FromBody]int unitCount)
         {
           var complex= _complexRepository.GetById(id);
@@ -62,10 +62,10 @@ namespace ComplexManagment.Controllers
             {
                 throw new Exception("Complex Not Found");
             }
-            var unitcount = _complexRepository.GetUnitCountById(id);
+            
             
 
-            if (unitCount<unitcount)
+            if (unitCount<complex.UnitCount)
             {
               List<Blook> blooks = _complexRepository.GetUnitCountBlookById(id);
                 foreach (var item in blooks)
@@ -74,7 +74,7 @@ namespace ComplexManagment.Controllers
                 }
                 _blockRepository.UpdateRange(blooks);
             }
-            complex.UnitCount = unitcount;
+            complex.UnitCount = unitCount;
             _complexRepository.Update(complex);
             _unitOfWork.Complit();
            
