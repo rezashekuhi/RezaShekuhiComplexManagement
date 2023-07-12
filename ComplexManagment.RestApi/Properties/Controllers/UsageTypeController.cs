@@ -1,7 +1,5 @@
-﻿using ComplexManagment.DataLayer;
-using ComplexManagment.DataLayer.Dto.UsageType;
-using ComplexManagment.DataLayer.Entities;
-using ComplexManagment.DataLayer.Repositories.UsageTypes;
+﻿using ComplexManagement.Services.UsageTypes.Contract;
+using ComplexManagement.Services.UsageTypes.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ComplexManagment.Properties.Controllers
@@ -10,36 +8,22 @@ namespace ComplexManagment.Properties.Controllers
     [ApiController]
     public class UsageTypeController : Controller
     {
-        private readonly UsageTypeRepository _usageTypeRepository;
-        private readonly UnitOfWork _unitOfWork;
-
-        public UsageTypeController(UsageTypeRepository usageTypeRepository,
-            UnitOfWork unitOfWork)
+        private readonly UsageTypeService _usageTypeService;
+        public UsageTypeController(UsageTypeService usageTypeService)
         {
-            _usageTypeRepository = usageTypeRepository;
-            _unitOfWork = unitOfWork;
+            _usageTypeService = usageTypeService;
         }
 
         [HttpPost]
         public void Add([FromBody]AddUsageTypeDto dto)
         {
-            var isExistName = _usageTypeRepository.IsExistByName(dto.Title);
-            if (isExistName)
-            {
-                throw new Exception("title is duplicate");
-            }
-            var usageType = new UsageType
-            {
-                Title = dto.Title
-            };
-            _usageTypeRepository.Add(usageType);
-            _unitOfWork.Complit();
+            _usageTypeService.Add(dto);
         }
 
         [HttpGet]
         public List<GetAllUsageType> GetAll()
         {
-            return _usageTypeRepository.getAllUsageTypes();
+           return _usageTypeService.GetAll();
         }
 
     }

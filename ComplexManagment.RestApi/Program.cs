@@ -1,10 +1,21 @@
+using ComplexManagement.Services;
+using ComplexManagement.Services.Blooks;
+using ComplexManagement.Services.Blooks.Contract;
+using ComplexManagement.Services.Complexes;
+using ComplexManagement.Services.Complexes.Contracts;
+using ComplexManagement.Services.ComplexUsageTypes;
+using ComplexManagement.Services.ComplexUsageTypes.Contact;
+using ComplexManagement.Services.units;
+using ComplexManagement.Services.units.Contact;
+using ComplexManagement.Services.UsageTypes;
+using ComplexManagement.Services.UsageTypes.Contract;
 using ComplexManagment;
-using ComplexManagment.DataLayer;
-using ComplexManagment.DataLayer.Repositories.Blocks;
-using ComplexManagment.DataLayer.Repositories.Complexs;
-using ComplexManagment.DataLayer.Repositories.ComplexUsageTypes;
-using ComplexManagment.DataLayer.Repositories.Units;
-using ComplexManagment.DataLayer.Repositories.UsageTypes;
+using ComplexManagment.Persistence.Ef;
+using ComplexManagment.Persistence.Ef.Repositories.Blocks;
+using ComplexManagment.Persistence.Ef.Repositories.Complexs;
+using ComplexManagment.Persistence.Ef.Repositories.ComplexUsageTypes;
+using ComplexManagment.Persistence.Ef.Repositories.Units;
+using ComplexManagment.Persistence.Ef.Repositories.UsageTypes;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +33,12 @@ builder.Services.AddScoped<BlockRepository, EFBlockRepository>();
 builder.Services.AddScoped<UnitRepository, EFUnitRepository>();
 builder.Services.AddScoped<UsageTypeRepository, EFUsageTypeRepository>();
 builder.Services.AddScoped<ComplexUsageTypeRepository, EFComplexUsageTypeRepository>();
-builder.Services.AddScoped<UnitOfWork,EFUnitWork>();
+builder.Services.AddScoped<UnitOfWork,EfUnitOfWork>();
+builder.Services.AddScoped<BlookService,BlookAppService>();
+builder.Services.AddScoped <ComplexService,ComplexAppService>();
+builder.Services.AddScoped <ComplexUsageTypeService,ComplexUsageTypeAppService>();
+builder.Services.AddScoped <UnitService,UnitAppService>();
+builder.Services.AddScoped <UsageTypeService,UsagetypeAppService>();
 
 
 

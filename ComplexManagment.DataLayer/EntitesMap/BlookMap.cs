@@ -1,8 +1,8 @@
-﻿using ComplexManagment.DataLayer.Entities;
+﻿using ComplexManagment.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ComplexManagment.DataLayer.EntitesMap
+namespace ComplexManagment.Persistence.Ef.EntitesMap
 {
     public class BlookMap : IEntityTypeConfiguration<Blook>
     {

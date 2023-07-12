@@ -1,7 +1,9 @@
-using ComplexManagment.DataLayer.Dto.Complexs;
-using ComplexManagment.DataLayer.Entities;
+using ComplexManagement.Services.Complexes;
+using ComplexManagement.Services.Complexes.Dto;
+using ComplexManagment.Entities;
+using ComplexManagment.Persistence.Ef;
 
-namespace ComplexManagment.DataLayer.Repositories.Complexs;
+namespace ComplexManagment.Persistence.Ef.Repositories.Complexs;
 
 public class EFComplexRepository : ComplexRepository
 {
@@ -15,7 +17,7 @@ public class EFComplexRepository : ComplexRepository
     public void Add(Complex complex)
     {
         _context.Complexs.Add(complex);
-        
+
     }
 
     public List<GetAllComplexByNameDto> GetAll(string? searchName)
@@ -54,17 +56,18 @@ public class EFComplexRepository : ComplexRepository
     {
         return (from complexUsageType in _context.ComplexUsageTypes
                 join usageType in _context.UsageTypes on complexUsageType.UsageTypeId equals usageType.Id
-                where complexUsageType.ComplexId==id 
-                select new GetUsageTypeComplexDto{
-                 UsageTypeId=complexUsageType.UsageTypeId,
-                 UsageTypeTitle=usageType.Title
-        }).ToList();
+                where complexUsageType.ComplexId == id
+                select new GetUsageTypeComplexDto
+                {
+                    UsageTypeId = complexUsageType.UsageTypeId,
+                    UsageTypeTitle = usageType.Title
+                }).ToList();
     }
 
     public List<Blook> GetUnitCountBlookById(int id)
     {
-       return _context.Blooks.Where(_ => _.ComplexId == id).ToList();
-            
+        return _context.Blooks.Where(_ => _.ComplexId == id).ToList();
+
 
 
     }
@@ -72,11 +75,28 @@ public class EFComplexRepository : ComplexRepository
     public Complex GetById(int id)
     {
         return _context.Complexs.FirstOrDefault(_ => _.Id == id);
-            
+
     }
 
     public void Update(Complex complex)
     {
         _context.Complexs.Update(complex);
+    }
+
+    public GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id)
+    {
+        return _context.Complexs.Where(_ => _.Id == id)
+            .Select(_ => new GetComplexByIdWithBlocksDto
+            {
+                Id = _.Id,
+                Name=_.Name,
+                Blocks=_context.Blooks.Select(_=> new GetBlockDto
+                {
+                    BlockId=_.Id,
+                    BlockName=_.Name,
+                    BlockUnitCount=_.UnitCount,
+                    UnitRegisteredCount=_.Units.Count()
+                }).ToList()
+            }).FirstOrDefault();
     }
 }

@@ -1,7 +1,7 @@
-﻿using ComplexManagment.DataLayer.Entities;
+﻿using ComplexManagment.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ComplexManagment.DataLayer
+namespace ComplexManagment.Persistence.Ef
 {
     public class EFDataContext : DbContext
     {

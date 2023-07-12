@@ -1,7 +1,8 @@
-using ComplexManagment.DataLayer.Dto.Blocks;
-using ComplexManagment.DataLayer.Entities;
+using ComplexManagement.Services.Blooks;
+using ComplexManagement.Services.Blooks.Dto;
+using ComplexManagment.Entities;
 
-namespace ComplexManagment.DataLayer.Repositories.Blocks;
+namespace ComplexManagment.Persistence.Ef.Repositories.Blocks;
 
 public class EFBlockRepository : BlockRepository
 {
@@ -11,10 +12,10 @@ public class EFBlockRepository : BlockRepository
     {
         _context = context;
     }
-    
-    public bool IsDuplicateNameByComplexId(string name,int complexId)
+
+    public bool IsDuplicateNameByComplexId(string name, int complexId)
     {
-        return _context.Blooks.Any(_ => 
+        return _context.Blooks.Any(_ =>
             _.ComplexId == complexId &&
             _.Name == name);
     }
@@ -41,7 +42,7 @@ public class EFBlockRepository : BlockRepository
     public void Add(Blook blook)
     {
         _context.Blooks.Add(blook);
-        
+
     }
 
     public Blook? FindById(int id)
@@ -64,7 +65,7 @@ public class EFBlockRepository : BlockRepository
     public void Update(Blook blook)
     {
         _context.Blooks.Update(blook);
-        
+
     }
 
     public bool CheckBlookId(int id)
@@ -74,15 +75,16 @@ public class EFBlockRepository : BlockRepository
 
     public List<GetAllBlookDto> GetAllBlook()
     {
-        return _context.Blooks.Select(_=> new GetAllBlookDto
+        return _context.Blooks.Select(_ => new GetAllBlookDto
         {
             Id = _.Id,
             Name = _.Name,
             UnitCount = _.UnitCount,
-            Units=_.Units.Select(_=> new GetUnitDto
+            Units = _.Units.Select(_ => new GetUnitDto
             {
+                UnitId=_.Id,
                 Name = _.Name,
-                Resident=_.Resident
+                Resident = _.Resident
             }).ToList()
 
         }).ToList();
@@ -96,4 +98,12 @@ public class EFBlockRepository : BlockRepository
     {
         _context.UpdateRange(blooks);
     }
+
+    public void AddBlockAndUnitRegistration(Blook blook,List<Unit> unit)
+    {
+        _context.Add(blook);
+        _context.AddRange(unit);
+    }
+
+   
 }

@@ -1,18 +1,20 @@
-﻿using ComplexManagment.DataLayer.Dto.UsageType;
-using ComplexManagment.DataLayer.Entities;
+﻿using ComplexManagement.Services.UsageTypes;
+using ComplexManagement.Services.UsageTypes.Dto;
+using ComplexManagment.Entities;
+using ComplexManagment.Persistence.Ef;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComplexManagment.DataLayer.Repositories.UsageTypes
+namespace ComplexManagment.Persistence.Ef.Repositories.UsageTypes
 {
-   
-   
+
+
     public class EFUsageTypeRepository : UsageTypeRepository
     {
-        
+
         private readonly EFDataContext _context;
 
         public EFUsageTypeRepository(EFDataContext context)
@@ -22,7 +24,7 @@ namespace ComplexManagment.DataLayer.Repositories.UsageTypes
         public void Add(UsageType usageType)
         {
             _context.UsageTypes.Add(usageType);
-            
+
         }
 
         public List<GetAllUsageType> getAllUsageTypes()
@@ -35,12 +37,12 @@ namespace ComplexManagment.DataLayer.Repositories.UsageTypes
         }
         public bool IsExistById(int id)
         {
-           return _context.UsageTypes.Any(_=>_.Id == id);
+            return _context.UsageTypes.Any(_ => _.Id == id);
         }
 
         public bool IsExistByName(string title)
         {
-            return _context.UsageTypes.Any(_=>_.Title == title);
+            return _context.UsageTypes.Any(_ => _.Title == title);
         }
     }
 }

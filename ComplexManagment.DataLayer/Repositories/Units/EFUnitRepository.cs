@@ -1,6 +1,8 @@
-using ComplexManagment.DataLayer.Entities;
+using ComplexManagement.Services.units;
+using ComplexManagment.Entities;
+using ComplexManagment.Persistence.Ef;
 
-namespace ComplexManagment.DataLayer.Repositories.Units;
+namespace ComplexManagment.Persistence.Ef.Repositories.Units;
 
 public class EFUnitRepository : UnitRepository
 {
@@ -14,7 +16,7 @@ public class EFUnitRepository : UnitRepository
     public void AddUnit(Unit unit)
     {
         _context.Add(unit);
-       
+
     }
 
     public bool CheckDuplicateUnitNameAndId(string name, int blookId)

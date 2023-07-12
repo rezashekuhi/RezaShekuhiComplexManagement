@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ComplexManagment.DataLayer\ComplexManagment.DataLayer.csproj" />
+    <ProjectReference Include="..\ComplexManagment.DataLayer\ComplexManagment.Persistence.Ef.csproj" />
   </ItemGroup>
 
 </Project>

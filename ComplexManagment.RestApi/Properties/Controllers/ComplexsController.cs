@@ -1,83 +1,49 @@
-﻿using ComplexManagment.DataLayer;
-using ComplexManagment.DataLayer.Dto.Complexs;
-using ComplexManagment.DataLayer.Entities;
-using ComplexManagment.DataLayer.Repositories.Blocks;
-using ComplexManagment.DataLayer.Repositories.Complexs;
+﻿using ComplexManagement.Services.Complexes.Contracts;
+using ComplexManagement.Services.Complexes.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ComplexManagment.Controllers
+namespace ComplexManagment.Properties.Controllers
 {
     [Route("complexs")]
     [ApiController]
     public class ComplexsController : ControllerBase
     {
 
-        private readonly ComplexRepository _complexRepository;
-        private readonly BlockRepository _blockRepository;
-        private readonly UnitOfWork _unitOfWork;
-
-        public ComplexsController(ComplexRepository complexRepository,
-            BlockRepository blockRepository,
-            UnitOfWork unitOfWork)
+        private readonly ComplexService _complexService;
+        public ComplexsController(ComplexService complexService)
         {
-            _complexRepository = complexRepository;
-            _blockRepository = blockRepository;
-            _unitOfWork = unitOfWork;
+            _complexService = complexService;
         }
-        
+
         [HttpPost]
-        public void Add([FromBody]AddComplexDto dto)
+        public void Add([FromBody] AddComplexDto dto)
         {
-            var complex = new Complex()
-            {
-                Name = dto.Name,
-                UnitCount = dto.UnitCount,
-            };
-            
-            _complexRepository.Add(complex);
-            _unitOfWork.Complit();
+            _complexService.Add(dto);
+        }
+
+        [HttpGet("{id}/block")]
+        public GetComplexByIdWithBlocksDto GetById(int id)
+        {
+            return _complexService.GetComplexByIdWithBlocksDto(id);
         }
 
         [HttpGet]
-        public List<GetAllComplexByNameDto> GetAll([FromQuery]string? name)
+        public List<GetAllComplexByNameDto> GetAll([FromQuery] string? name)
         {
-            return _complexRepository.GetAll(name);
+           return _complexService.GetAllSearchByName(name);
         }
-        
-      
-        [HttpGet("{id}/usage-type")]
-        public List<GetUsageTypeComplexDto> GetUsageType([FromRoute]int id)
-        {
-            return _complexRepository.GetComplexOfUsagetype(id);
 
-            
+
+        [HttpGet("{id}/usage-type")]
+        public List<GetUsageTypeComplexDto> GetUsageType([FromRoute] int id)
+        {
+            return _complexService.GetUsagetype(id);
         }
 
         [HttpPatch("{id}")]
-        public void EditeComplexUnitCount([FromRoute]int id,[FromBody]int unitCount)
+        public void EditeComplexUnitCount([FromRoute] int id, [FromBody] int unitCount)
         {
-          var complex= _complexRepository.GetById(id);
-            var isExistComplexId=_complexRepository.IsExistsById(id);
-            if (!isExistComplexId)
-            {
-                throw new Exception("Complex Not Found");
-            }
-            
-            
-
-            if (unitCount<complex.UnitCount)
-            {
-              List<Blook> blooks = _complexRepository.GetUnitCountBlookById(id);
-                foreach (var item in blooks)
-                {
-                    item.UnitCount = 0;
-                }
-                _blockRepository.UpdateRange(blooks);
-            }
-            complex.UnitCount = unitCount;
-            _complexRepository.Update(complex);
-            _unitOfWork.Complit();
-           
+           _complexService.EditeUnitcount(id, unitCount);
         }
     }
-} 
+}
