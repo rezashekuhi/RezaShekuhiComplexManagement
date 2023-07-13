@@ -15,12 +15,13 @@ namespace ComplexManagment.Persistence.Ef
         public DbSet<Unit> Units { get; set; }
         public DbSet<UsageType> UsageTypes { get; set; }
         public DbSet<ComplexUsageType> ComplexUsageTypes { get; set; }
-        public DbSet<BlookUsageType> BlookUsageTypes { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EFDataContext).Assembly);
+           
         }
     }
 }

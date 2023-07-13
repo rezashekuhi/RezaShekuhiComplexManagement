@@ -82,7 +82,7 @@ public class EFBlockRepository : BlockRepository
             UnitCount = _.UnitCount,
             Units = _.Units.Select(_ => new GetUnitDto
             {
-                UnitId=_.Id,
+                UnitId = _.Id,
                 Name = _.Name,
                 Resident = _.Resident
             }).ToList()
@@ -99,11 +99,9 @@ public class EFBlockRepository : BlockRepository
         _context.UpdateRange(blooks);
     }
 
-    public void AddBlockAndUnitRegistration(Blook blook,HashSet<Unit> unit)
+    public void AddBlockAndUnitRegistration(Blook blook, HashSet<Unit> unit)
     {
         _context.Add(blook);
         _context.AddRange(unit);
     }
-
-   
 }
