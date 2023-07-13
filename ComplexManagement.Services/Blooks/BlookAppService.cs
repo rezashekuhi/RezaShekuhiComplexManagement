@@ -67,6 +67,28 @@ namespace ComplexManagement.Services.Blooks.Contract
 
         public void AddBlockAndUnitRegistration(AddBlockAndUnitRegistrationDto dto)
         {
+            var isExistsComplex = _complexRepository.IsExistsById(dto.ComplexId);
+            if (!isExistsComplex)
+            {
+                throw new Exception("complex not found");
+            }
+
+            var isDuplicateBlockName = _blockRepository
+                .IsDuplicateNameByComplexId(dto.Name, dto.ComplexId);
+            if (isDuplicateBlockName)
+            {
+                throw new Exception("name duplicate");
+            }
+
+            var totalBlockUnitCount = _blockRepository
+                .GetTotalUnitCountByComplexId(dto.ComplexId);
+            var complexUnitCount = _complexRepository
+                .GetUnitCountById(dto.ComplexId);
+            if (totalBlockUnitCount + dto.UnitCount > complexUnitCount)
+            {
+                throw new Exception("totalBlockUnitCount");
+            }
+
             var Blook = new Blook()
             {
                 ComplexId = dto.ComplexId,
@@ -77,13 +99,14 @@ namespace ComplexManagement.Services.Blooks.Contract
             var units = dto.Units.Select(_ => new Unit
             {
                 Blook = Blook,
-                Name = dto.Name,
+                Name = _.UnitName,
                 Resident = _.Resident
 
-            }).ToList();
+            }).ToHashSet();
                 
             
             _blockRepository.AddBlockAndUnitRegistration(Blook,units);
+            _unitOfWork.Complit();
             
         }
 

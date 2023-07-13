@@ -99,7 +99,7 @@ public class EFBlockRepository : BlockRepository
         _context.UpdateRange(blooks);
     }
 
-    public void AddBlockAndUnitRegistration(Blook blook,List<Unit> unit)
+    public void AddBlockAndUnitRegistration(Blook blook,HashSet<Unit> unit)
     {
         _context.Add(blook);
         _context.AddRange(unit);

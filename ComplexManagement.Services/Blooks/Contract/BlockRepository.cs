@@ -15,5 +15,5 @@ public interface BlockRepository
     bool CheckBlookId(int id);
     List<GetAllBlookDto> GetAllBlook();
     void UpdateRange(List<Blook> blooks);
-    void AddBlockAndUnitRegistration(Blook blook,List<Unit> unit);
+    void AddBlockAndUnitRegistration(Blook blook,HashSet<Unit> unit);
 }

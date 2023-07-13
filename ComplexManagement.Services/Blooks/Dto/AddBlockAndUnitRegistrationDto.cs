@@ -17,7 +17,7 @@ namespace ComplexManagement.Services.Blooks.Dto
         public int UnitCount { get; set; }
         [Required]
         public int ComplexId { get; set; }
-        public List<AddUnit> Units { get; set; }
+        public HashSet<AddUnit> Units { get; set; }
 
     }
     public class AddUnit { 

@@ -14,6 +14,11 @@ public class BlocksController : Controller
     {
         _service = blookService;
     }
+    [HttpPost("unit-add")]
+    public void AddBlookWhithUnit(AddBlockAndUnitRegistrationDto dto)
+    {
+        _service.AddBlockAndUnitRegistration(dto);
+    }
 
     [HttpPost]
     public void Add(AddBlockDto dto)
