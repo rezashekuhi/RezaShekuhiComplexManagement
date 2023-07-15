@@ -1,5 +1,6 @@
 ﻿using ComplexManagement.Services.Complexes;
 using ComplexManagement.Services.ComplexUsageTypes.Dto;
+using ComplexManagement.Services.ComplexUsageTypes.Exeptions;
 using ComplexManagement.Services.UsageTypes;
 using ComplexManagment.Entities;
 
@@ -29,19 +30,19 @@ namespace ComplexManagement.Services.ComplexUsageTypes.Contact
             var isExistComplexId = _complexRepository.IsExistsById(dto.ComplexId);
             if (!isExistComplexId)
             {
-                throw new Exception("Complex Id is not found");
+                throw new ComplexIdIsNotFoundException();
             }
 
             var isExistUsageTypeId = _usageTypeRepository.IsExistById(dto.UsageTypeId);
             if (!isExistUsageTypeId)
             {
-                throw new Exception("UsageType Id is not found");
+                throw new UsageTypeIdIsNotFoundException();
             }
 
             var isDuplicate = _complexUsageTypeRepository.IsduplicateId(dto.ComplexId, dto.UsageTypeId);
             if (isDuplicate)
             {
-                throw new Exception("ComplexId Or UsageTypeId Is Duplicate");
+                throw new ComplexIdOrUsageTypeIdIsDuplicateException();
             }
             var complexUsageType = new ComplexUsageType
             {

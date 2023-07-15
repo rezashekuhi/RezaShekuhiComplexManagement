@@ -8,7 +8,7 @@ namespace ComplexManagement.Services.Complexes;
 public interface ComplexRepository
 {
     void Add(Complex complex);
-    List<GetAllComplexByNameDto> GetAll(string? searchName);
+    List<GetAllComplexByNameDto> GetAll(int id,string? searchName);
     bool IsExistsById(int id);
     int GetUnitCountById(int id);
     List<GetUsageTypeComplexDto> GetComplexOfUsagetype(int id);
@@ -16,4 +16,6 @@ public interface ComplexRepository
     Complex GetById(int id);
     void Update(Complex complex);
     GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id);
+    GetComplexByIdDto GetComplexById(int id);
+    bool CheckToHaveAUnit(int id);
 }

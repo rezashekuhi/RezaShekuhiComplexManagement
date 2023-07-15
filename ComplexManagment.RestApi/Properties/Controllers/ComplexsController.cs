@@ -9,41 +9,47 @@ namespace ComplexManagment.Properties.Controllers
     public class ComplexsController : ControllerBase
     {
 
-        private readonly ComplexService _complexService;
+        private readonly ComplexService _Service;
         public ComplexsController(ComplexService complexService)
         {
-            _complexService = complexService;
+            _Service = complexService;
         }
 
         [HttpPost]
         public void Add([FromBody] AddComplexDto dto)
         {
-            _complexService.Add(dto);
+            _Service.Add(dto);
         }
 
         [HttpGet("{id}/block")]
         public GetComplexByIdWithBlocksDto GetById(int id)
         {
-            return _complexService.GetComplexByIdWithBlocksDto(id);
+            return _Service.GetComplexByIdWithBlocksDto(id);
+        }
+
+        [HttpGet("{id}")]
+        public GetComplexByIdDto GetComplexById([FromRoute]int id)
+        {
+            return _Service.GetById(id);
         }
 
         [HttpGet]
-        public List<GetAllComplexByNameDto> GetAll([FromQuery] string? name)
+        public List<GetAllComplexByNameDto> GetAll([FromQuery]int id,string? name)
         {
-           return _complexService.GetAllSearchByName(name);
+           return _Service.GetAllSearchByName(id,name);
         }
 
 
         [HttpGet("{id}/usage-type")]
         public List<GetUsageTypeComplexDto> GetUsageType([FromRoute] int id)
         {
-            return _complexService.GetUsagetype(id);
+            return _Service.GetUsagetype(id);
         }
 
         [HttpPatch("{id}")]
         public void EditeComplexUnitCount([FromRoute] int id, [FromBody] int unitCount)
         {
-           _complexService.EditeUnitcount(id, unitCount);
+           _Service.EditeUnitcount(id, unitCount);
         }
     }
 }

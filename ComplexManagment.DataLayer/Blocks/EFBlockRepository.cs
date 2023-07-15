@@ -1,4 +1,5 @@
 using ComplexManagement.Services.Blooks;
+using ComplexManagement.Services.Blooks.Contract.Dto;
 using ComplexManagement.Services.Blooks.Dto;
 using ComplexManagment.Entities;
 
@@ -103,5 +104,27 @@ public class EFBlockRepository : BlockRepository
     {
         _context.Add(blook);
         _context.AddRange(unit);
+    }
+
+    public bool CheckToHaveABlockUnit(int id)
+    {
+        return _context.Blooks.Where(_ => _.Id == id)
+            .Any(_ => _.Units.Count() != 0);
+    }
+
+    public GetBlookByIdDto GetById(int id)
+    {
+        return _context.Blooks.Where(_ => _.Id == id)
+            .Select(_ => new GetBlookByIdDto
+            {
+                Id = _.Id,
+                Name = _.Name,
+                Units = _.Units.Select(_ => new GetUnitDto
+                {
+                    UnitId = _.Id,
+                    Name = _.Name,
+                    Resident = _.Resident,
+                }).ToList()
+            }).FirstOrDefault();
     }
 }

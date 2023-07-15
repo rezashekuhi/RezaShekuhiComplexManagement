@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComplexManagement.Services.Complexes.Dto
+namespace ComplexManagement.Services.UsageTypes.Exeptions
 {
-    public class GetComplexById
+    public class TitleIsDuplicateException:Exception
     {
-
     }
 }

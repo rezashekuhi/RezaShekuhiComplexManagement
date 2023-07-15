@@ -1,3 +1,4 @@
+using ComplexManagement.Services.Blooks.Contract.Dto;
 using ComplexManagement.Services.Blooks.Dto;
 using ComplexManagment.Entities;
 
@@ -16,4 +17,6 @@ public interface BlockRepository
     List<GetAllBlookDto> GetAllBlook();
     void UpdateRange(List<Blook> blooks);
     void AddBlockAndUnitRegistration(Blook blook,HashSet<Unit> unit);
+    bool CheckToHaveABlockUnit(int id);
+    GetBlookByIdDto GetById(int id);
 }

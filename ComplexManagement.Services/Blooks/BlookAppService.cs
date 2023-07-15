@@ -1,4 +1,6 @@
-﻿using ComplexManagement.Services.Blooks.Dto;
+﻿using ComplexManagement.Services.Blooks.Contract.Dto;
+using ComplexManagement.Services.Blooks.Dto;
+using ComplexManagement.Services.Blooks.Exeptions;
 using ComplexManagement.Services.Complexes;
 using ComplexManagement.Services.units;
 using ComplexManagement.Services.units.Dto;
@@ -35,14 +37,14 @@ namespace ComplexManagement.Services.Blooks.Contract
             var isExistsComplex = _complexRepository.IsExistsById(dto.ComplexId);
             if (!isExistsComplex)
             {
-                throw new Exception("complex not found");
+                throw new ComplexNotFoundException();
             }
 
             var isDuplicateBlockName = _blockRepository
                 .IsDuplicateNameByComplexId(dto.Name, dto.ComplexId);
             if (isDuplicateBlockName)
             {
-                throw new Exception("name duplicate");
+                throw new NameDuplicateException();
             }
 
             var totalBlockUnitCount = _blockRepository
@@ -51,7 +53,7 @@ namespace ComplexManagement.Services.Blooks.Contract
                 .GetUnitCountById(dto.ComplexId);
             if (totalBlockUnitCount + dto.UnitCount > complexUnitCount)
             {
-                throw new Exception("totalBlockUnitCount");
+                throw new TotalBlockUnitCountException();
             }
 
             var block = new Blook()
@@ -70,14 +72,14 @@ namespace ComplexManagement.Services.Blooks.Contract
             var isExistsComplex = _complexRepository.IsExistsById(dto.ComplexId);
             if (!isExistsComplex)
             {
-                throw new Exception("complex not found");
+                throw new ComplexNotFoundException();
             }
 
             var isDuplicateBlockName = _blockRepository
                 .IsDuplicateNameByComplexId(dto.Name, dto.ComplexId);
             if (isDuplicateBlockName)
             {
-                throw new Exception("name duplicate");
+                throw new NameDuplicateException();
             }
 
             var totalBlockUnitCount = _blockRepository
@@ -86,7 +88,7 @@ namespace ComplexManagement.Services.Blooks.Contract
                 .GetUnitCountById(dto.ComplexId);
             if (totalBlockUnitCount + dto.UnitCount > complexUnitCount)
             {
-                throw new Exception("totalBlockUnitCount");
+                throw new TotalBlockUnitCountException();
             }
 
             var Blook = new Blook()
@@ -116,14 +118,20 @@ namespace ComplexManagement.Services.Blooks.Contract
 
             if (block == null)
             {
-                throw new Exception("block not found");
+                throw new BlockNotFoundException();
             }
 
             var isDuplicateBlockName = _blockRepository
                 .IsDuplicateNameByComplexId(block.Id, dto.Name, block.ComplexId);
             if (isDuplicateBlockName)
             {
-                throw new Exception("name duplicate");
+                throw new NameDuplicateException();
+            }
+
+            var CheckToHaveABlockUnit = _blockRepository.CheckToHaveABlockUnit(id);
+            if (CheckToHaveABlockUnit)
+            {
+                throw new ThisBlockHasUnitsException();
             }
 
             var isExistUnit = _unitRepository.IsExistsByBlockId(block.Id);
@@ -138,7 +146,7 @@ namespace ComplexManagement.Services.Blooks.Contract
                     .GetUnitCountById(block.ComplexId);
                 if (totalBlockUnitCount + dto.UnitCount > complexUnitCount)
                 {
-                    throw new Exception("totalBlockUnitCount");
+                    throw new TotalBlockUnitCountException();
                 }
                 block.UnitCount = dto.UnitCount;
             }
@@ -152,6 +160,11 @@ namespace ComplexManagement.Services.Blooks.Contract
         public List<GetAllBlookDto> GetAll()
         {
             return _blockRepository.GetAllBlook();
+        }
+
+        public GetBlookByIdDto GetById(int id)
+        {
+            return _blockRepository.GetById(id);
         }
     }
 }

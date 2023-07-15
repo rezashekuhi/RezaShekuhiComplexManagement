@@ -20,7 +20,7 @@ public class EFComplexRepository : ComplexRepository
 
     }
 
-    public List<GetAllComplexByNameDto> GetAll(string? searchName)
+    public List<GetAllComplexByNameDto> GetAll(int id,string? searchName)
     {
         var result = _context.Complexs
             .Select(_ => new GetAllComplexByNameDto
@@ -34,6 +34,11 @@ public class EFComplexRepository : ComplexRepository
         if (!string.IsNullOrWhiteSpace(searchName))
         {
             result = result.Where(_ => _.Name.Contains(searchName));
+        }
+
+        if (id>0) 
+        {
+            result = result.Where(_ => _.Id == id);
         }
 
         return result.ToList();
@@ -97,6 +102,25 @@ public class EFComplexRepository : ComplexRepository
                     BlockUnitCount=_.UnitCount,
                     UnitRegisteredCount=_.Units.Count()
                 }).ToList()
+            }).FirstOrDefault();
+    }
+
+    public bool CheckToHaveAUnit(int id)
+    {
+        return _context.Complexs.Where(_ => _.Id == id)
+            .Any(_ => _.Blooks.Count() != 0);
+    }
+
+    public GetComplexByIdDto GetComplexById(int id)
+    {
+        return _context.Complexs.Where(_ => _.Id == id)
+            .Select(_ => new GetComplexByIdDto
+            {
+                Id= _.Id,
+                Name=_.Name,
+                NumberOfRegisteredUnits=_context.Blooks.SelectMany(_=>_.Units).Count(),
+                NumberOfUnregisteredUnits=_.UnitCount-_context.Blooks.SelectMany(_=>_.Units).Count(),
+                NumberOfRegisteredBlook=_.Blooks.Count()
             }).FirstOrDefault();
     }
 }

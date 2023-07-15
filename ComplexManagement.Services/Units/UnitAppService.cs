@@ -1,5 +1,6 @@
 ﻿using ComplexManagement.Services.Blooks;
 using ComplexManagement.Services.units.Dto;
+using ComplexManagement.Services.Units.Exeptions;
 using ComplexManagment.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,13 +31,13 @@ namespace ComplexManagement.Services.units.Contact
             var isExistBlockId = _blockRepository.CheckBlookId(dto.BlookId);
             if (!isExistBlockId)
             {
-                throw new Exception("block not found");
+                throw new BlockNotFoundException();
             }
 
             var duplicateUnitName = _unitRepository.CheckDuplicateUnitNameAndId(dto.Name, dto.BlookId);
             if (duplicateUnitName)
             {
-                throw new Exception("unit name duplicate");
+                throw new UnitNameDuplicateException();
             }
 
             var blockUnitCount = _unitRepository.GetBlockUnitCount(dto.BlookId);
@@ -44,7 +45,7 @@ namespace ComplexManagement.Services.units.Contact
 
             if (totalUnitInBlock == blockUnitCount)
             {
-                throw new Exception("unit count exception");
+                throw new UnitCountExceptionException();
             }
 
             var unit = new Unit()

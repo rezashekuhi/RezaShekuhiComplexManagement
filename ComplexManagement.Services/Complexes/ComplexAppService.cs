@@ -1,5 +1,6 @@
 ﻿using ComplexManagement.Services.Blooks;
 using ComplexManagement.Services.Complexes.Dto;
+using ComplexManagement.Services.Complexes.Exeptions;
 using ComplexManagment.Entities;
 
 namespace ComplexManagement.Services.Complexes.Contracts
@@ -33,14 +34,19 @@ namespace ComplexManagement.Services.Complexes.Contracts
 
         public void EditeUnitcount(int id, int unitCount)
         {
+
             var complex = _complexRepository.GetById(id);
             var isExistComplexId = _complexRepository.IsExistsById(id);
             if (!isExistComplexId)
             {
-                throw new Exception("Complex Not Found");
+                throw new ComplexNotFoundException();
             }
+            var CheckToHaveAUnit = _complexRepository.CheckToHaveAUnit(id);
 
-
+            if (CheckToHaveAUnit)
+            {
+                throw new ThisComplexHasUnitsException();
+            }
 
             if (unitCount < complex.UnitCount)
             {
@@ -56,9 +62,14 @@ namespace ComplexManagement.Services.Complexes.Contracts
             _unitOfWork.Complit();
         }
 
-        public List<GetAllComplexByNameDto> GetAllSearchByName(string? name)
+        public List<GetAllComplexByNameDto> GetAllSearchByName(int id,string? name)
         {
-            return _complexRepository.GetAll(name);
+            return _complexRepository.GetAll(id,name);
+        }
+
+        public GetComplexByIdDto GetById(int id)
+        {
+            return _complexRepository.GetComplexById(id);
         }
 
         public GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id)

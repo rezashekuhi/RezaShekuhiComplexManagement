@@ -10,9 +10,10 @@ namespace ComplexManagement.Services.Complexes.Contracts
     public interface ComplexService
     {
         void Add(AddComplexDto dto);
-        List<GetAllComplexByNameDto> GetAllSearchByName(string? name);
+        List<GetAllComplexByNameDto> GetAllSearchByName(int id,string? name);
         List<GetUsageTypeComplexDto> GetUsagetype(int id);
         void EditeUnitcount(int id, int unitCount);
         GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id);
+        GetComplexByIdDto GetById(int id);
     }
 }

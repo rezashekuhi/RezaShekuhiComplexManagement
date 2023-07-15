@@ -1,4 +1,5 @@
 ﻿using ComplexManagement.Services.UsageTypes.Dto;
+using ComplexManagement.Services.UsageTypes.Exeptions;
 using ComplexManagment.Entities;
 
 namespace ComplexManagement.Services.UsageTypes.Contract
@@ -20,7 +21,7 @@ namespace ComplexManagement.Services.UsageTypes.Contract
             var isExistName = _usageTypeRepository.IsExistByName(dto.Title);
             if (isExistName)
             {
-                throw new Exception("title is duplicate");
+                throw new TitleIsDuplicateException();
             }
             var usageType = new UsageType
             {
