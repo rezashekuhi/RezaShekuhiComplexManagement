@@ -13,9 +13,10 @@ public interface ComplexRepository
     int GetUnitCountById(int id);
     List<GetUsageTypeComplexDto> GetComplexOfUsagetype(int id);
     List<Blook> GetUnitCountBlookById(int id);
-    Complex GetById(int id);
+    Complex FindeById(int id);
     void Update(Complex complex);
     GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id);
     GetComplexByIdDto GetComplexById(int id);
     bool CheckToHaveAUnit(int id);
+    void Delete(Complex complex);    
 }

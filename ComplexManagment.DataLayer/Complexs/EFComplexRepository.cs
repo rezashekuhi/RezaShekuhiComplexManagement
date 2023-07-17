@@ -77,7 +77,7 @@ public class EFComplexRepository : ComplexRepository
 
     }
 
-    public Complex GetById(int id)
+    public Complex FindeById(int id)
     {
         return _context.Complexs.FirstOrDefault(_ => _.Id == id);
 
@@ -108,7 +108,7 @@ public class EFComplexRepository : ComplexRepository
     public bool CheckToHaveAUnit(int id)
     {
         return _context.Complexs.Where(_ => _.Id == id)
-            .Any(_ => _.Blooks.Count() != 0);
+            .Any(_ => _.Blooks.Any(_ => _.Units.Count()!=0));
     }
 
     public GetComplexByIdDto GetComplexById(int id)
@@ -122,5 +122,10 @@ public class EFComplexRepository : ComplexRepository
                 NumberOfUnregisteredUnits=_.UnitCount-_context.Blooks.SelectMany(_=>_.Units).Count(),
                 NumberOfRegisteredBlook=_.Blooks.Count()
             }).FirstOrDefault();
+    }
+
+    public void Delete(Complex complex)
+    {
+        _context.Remove(complex);
     }
 }

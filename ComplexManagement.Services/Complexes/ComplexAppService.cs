@@ -32,10 +32,24 @@ namespace ComplexManagement.Services.Complexes.Contracts
             _unitOfWork.Complit();
         }
 
+        public void Delete(int id)
+        {
+            var complex = _complexRepository.FindeById(id);
+            var CheckToHaveAUnit = _complexRepository.CheckToHaveAUnit(id);
+
+            if (CheckToHaveAUnit)
+            {
+                throw new ThisComplexHasUnitsException();
+            }
+
+            _complexRepository.Delete(complex);
+            _unitOfWork.Complit();
+        }
+
         public void EditeUnitcount(int id, int unitCount)
         {
 
-            var complex = _complexRepository.GetById(id);
+            var complex = _complexRepository.FindeById(id);
             var isExistComplexId = _complexRepository.IsExistsById(id);
             if (!isExistComplexId)
             {

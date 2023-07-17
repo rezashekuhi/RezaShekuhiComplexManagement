@@ -51,5 +51,12 @@ namespace ComplexManagment.Properties.Controllers
         {
            _Service.EditeUnitcount(id, unitCount);
         }
+
+        [HttpDelete("{id}")]
+        public void Delete([FromRoute]int id)
+        {
+            _Service.Delete(id);
+        }
+
     }
 }

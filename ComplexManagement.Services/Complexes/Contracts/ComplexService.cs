@@ -15,5 +15,6 @@ namespace ComplexManagement.Services.Complexes.Contracts
         void EditeUnitcount(int id, int unitCount);
         GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id);
         GetComplexByIdDto GetById(int id);
+        void Delete(int id);
     }
 }
