@@ -16,7 +16,7 @@ public interface ComplexRepository
     Complex FindeById(int id);
     void Update(Complex complex);
     GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id);
-    GetComplexByIdDto GetComplexById(int id);
+    GetComplexByIdDto FindComplexById(int id);
     bool CheckToHaveAUnit(int id);
     void Delete(Complex complex);    
 }

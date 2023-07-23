@@ -45,7 +45,7 @@ namespace ComplexManagement.Services.units.Contact
 
             if (totalUnitInBlock == blockUnitCount)
             {
-                throw new UnitCountExceptionException();
+                throw new UnitCountException();
             }
 
             var unit = new Unit()

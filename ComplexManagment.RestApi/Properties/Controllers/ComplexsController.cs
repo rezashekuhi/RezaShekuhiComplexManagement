@@ -28,15 +28,15 @@ namespace ComplexManagment.Properties.Controllers
         }
 
         [HttpGet("{id}")]
-        public GetComplexByIdDto GetComplexById([FromRoute]int id)
+        public GetComplexByIdDto GetComplexById([FromRoute] int id)
         {
-            return _Service.GetById(id);
+            return _Service.FindById(id);
         }
 
         [HttpGet]
-        public List<GetAllComplexByNameDto> GetAll([FromQuery]int id,string? name)
+        public List<GetAllComplexByNameDto> GetAll([FromQuery] int id, string? name)
         {
-           return _Service.GetAllSearchByName(id,name);
+            return _Service.GetAllSearchByName(id, name);
         }
 
 
@@ -49,11 +49,11 @@ namespace ComplexManagment.Properties.Controllers
         [HttpPatch("{id}")]
         public void EditeComplexUnitCount([FromRoute] int id, [FromBody] int unitCount)
         {
-           _Service.EditeUnitcount(id, unitCount);
+            _Service.EditUnitcount(id, unitCount);
         }
 
         [HttpDelete("{id}")]
-        public void Delete([FromRoute]int id)
+        public void Delete([FromRoute] int id)
         {
             _Service.Delete(id);
         }

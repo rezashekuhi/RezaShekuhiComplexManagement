@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComplexManagement.Services.Units.Exeptions
 {
-    public class UnitCountExceptionException:Exception
+    public class UnitCountException:Exception
     {
     }
 }

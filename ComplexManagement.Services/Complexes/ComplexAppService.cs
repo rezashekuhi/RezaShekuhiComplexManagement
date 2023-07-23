@@ -1,4 +1,5 @@
 ﻿using ComplexManagement.Services.Blooks;
+using ComplexManagement.Services.Blooks.Exeptions;
 using ComplexManagement.Services.Complexes.Dto;
 using ComplexManagement.Services.Complexes.Exeptions;
 using ComplexManagment.Entities;
@@ -46,7 +47,7 @@ namespace ComplexManagement.Services.Complexes.Contracts
             _unitOfWork.Complit();
         }
 
-        public void EditeUnitcount(int id, int unitCount)
+        public void EditUnitcount(int id, int unitCount)
         {
 
             var complex = _complexRepository.FindeById(id);
@@ -81,9 +82,9 @@ namespace ComplexManagement.Services.Complexes.Contracts
             return _complexRepository.GetAll(id,name);
         }
 
-        public GetComplexByIdDto GetById(int id)
+        public GetComplexByIdDto FindById(int id)
         {
-            return _complexRepository.GetComplexById(id);
+            return _complexRepository.FindComplexById(id);
         }
 
         public GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id)

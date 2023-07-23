@@ -12,9 +12,9 @@ namespace ComplexManagement.Services.Complexes.Contracts
         void Add(AddComplexDto dto);
         List<GetAllComplexByNameDto> GetAllSearchByName(int id,string? name);
         List<GetUsageTypeComplexDto> GetUsagetype(int id);
-        void EditeUnitcount(int id, int unitCount);
+        void EditUnitcount(int id, int unitCount);
         GetComplexByIdWithBlocksDto GetComplexByIdWithBlocksDto(int id);
-        GetComplexByIdDto GetById(int id);
+        GetComplexByIdDto FindById(int id);
         void Delete(int id);
     }
 }

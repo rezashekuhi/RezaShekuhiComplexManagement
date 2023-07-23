@@ -2,6 +2,7 @@
 using ComplexManagement.Services.Blooks.Dto;
 using ComplexManagement.Services.Blooks.Exeptions;
 using ComplexManagement.Services.Complexes;
+using ComplexManagement.Services.Complexes.Exeptions;
 using ComplexManagement.Services.units;
 using ComplexManagement.Services.units.Dto;
 using ComplexManagment.Entities;
@@ -53,7 +54,7 @@ namespace ComplexManagement.Services.Blooks.Contract
                 .GetUnitCountById(dto.ComplexId);
             if (totalBlockUnitCount + dto.UnitCount > complexUnitCount)
             {
-                throw new TotalBlockUnitCountException();
+                throw new TheNumberOfBlockUnitsIsMoreThanTheLimitException();
             }
 
             var block = new Blook()

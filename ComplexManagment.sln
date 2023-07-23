@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplexMigration", "Complex
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplexManagment.Persistence.Ef", "ComplexManagment.DataLayer\ComplexManagment.Persistence.Ef.csproj", "{BE13D6E7-DFC7-4915-B8B6-F878223FFF27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexManagment.Entities", "ComplexManagment.Entities\ComplexManagment.Entities.csproj", "{8C778866-538B-4C8E-B5DC-DF3C8859F36B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplexManagment.Entities", "ComplexManagment.Entities\ComplexManagment.Entities.csproj", "{8C778866-538B-4C8E-B5DC-DF3C8859F36B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexManagement.Services", "ComplexManagement.Services\ComplexManagement.Services.csproj", "{6E2DEC72-6595-440B-BA13-AC036110A558}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplexManagement.Services", "ComplexManagement.Services\ComplexManagement.Services.csproj", "{6E2DEC72-6595-440B-BA13-AC036110A558}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9710575A-DC42-4E0B-B4B2-4E5035DA0208}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexManagement.Services.Unit.Test", "Test\ComplexManagement.Services.Unit.Test\ComplexManagement.Services.Unit.Test.csproj", "{49CD17AB-2974-4D28-A9A5-F572EA097E4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{6E2DEC72-6595-440B-BA13-AC036110A558}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E2DEC72-6595-440B-BA13-AC036110A558}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E2DEC72-6595-440B-BA13-AC036110A558}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49CD17AB-2974-4D28-A9A5-F572EA097E4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CD17AB-2974-4D28-A9A5-F572EA097E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CD17AB-2974-4D28-A9A5-F572EA097E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CD17AB-2974-4D28-A9A5-F572EA097E4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{49CD17AB-2974-4D28-A9A5-F572EA097E4F} = {9710575A-DC42-4E0B-B4B2-4E5035DA0208}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BFF8A506-6BC9-4D02-80DC-38F0D1ED1134}

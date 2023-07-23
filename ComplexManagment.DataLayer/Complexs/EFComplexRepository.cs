@@ -95,12 +95,12 @@ public class EFComplexRepository : ComplexRepository
             {
                 Id = _.Id,
                 Name=_.Name,
-                Blocks=_context.Blooks.Select(_=> new GetBlockDto
+                Blocks=_.Blooks.Select(b=> new GetBlockDto
                 {
-                    BlockId=_.Id,
-                    BlockName=_.Name,
-                    BlockUnitCount=_.UnitCount,
-                    UnitRegisteredCount=_.Units.Count()
+                    BlockId=b.Id,
+                    BlockName=b.Name,
+                    BlockUnitCount=b.UnitCount,
+                    UnitRegisteredCount=b.Units.Count()
                 }).ToList()
             }).FirstOrDefault();
     }
@@ -111,7 +111,7 @@ public class EFComplexRepository : ComplexRepository
             .Any(_ => _.Blooks.Any(_ => _.Units.Count()!=0));
     }
 
-    public GetComplexByIdDto GetComplexById(int id)
+    public GetComplexByIdDto FindComplexById(int id)
     {
         return _context.Complexs.Where(_ => _.Id == id)
             .Select(_ => new GetComplexByIdDto

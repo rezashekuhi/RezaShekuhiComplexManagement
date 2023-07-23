@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComplexManagement.Services.Blooks.Exeptions
 {
-    public class ComplexNotFoundException : Exception
+    public class TheNumberOfBlockUnitsIsMoreThanTheLimitException : Exception
     {
     }
 }
